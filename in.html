@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف خالد وهند - حفل أحلام</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flip.css" />
+    <script src="flip.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --gold-dark: #B8860B;
+            --beige: #F5F5DC;
+            --rose: #F8E8E8;
+            --pearl: #F8F6F0;
+            --deep-gold: #8B7355;
+        }
+        
+        @font-face {
+            font-family: 'arab';
+            src: url(./arab.ttf) ;
+        }
+
+        @font-face {
+            font-family: 'Noto Naskh Arabic';
+            src: url(./NotoNaskhArabic-Regular.ttf) ;
+        }
+        body  {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--rose) 50%, var(--pearl) 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* .quran {
+            font-family: Arial,'Amiri','arab', serif;
+        } */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.2) blur(1px);
+        }
+        
+        .gold-text {
+            color: var(--gold);
+            text-shadow: 3px 3px 6px rgba(212, 175, 55, 0.4);
+        }
+        
+        .bride-groom-names {
+            font-family: 'Amiri','Scheherazade New', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--gold), #FFD700, var(--gold-dark), var(--gold));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .ornament-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .ornament-text::before,
+        .ornament-text::after {
+            content: '✧';
+            position: absolute;
+            color: var(--gold);
+            font-size: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: sparkle-pulse 3s infinite;
+        }
+        
+        .ornament-text::before {
+            left: -2.5rem;
+        }
+        
+        .ornament-text::after {
+            right: -2.5rem;
+        }
+        
+        @keyframes sparkle-pulse {
+            0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2) rotate(180deg); }
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: #E91E63;
+            font-size: 1.5rem;
+            animation: float-up 8s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1) rotate(45deg);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1) rotate(315deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(0) rotate(360deg);
+            }
+        }
+        
+        .section-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .elegant-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(248, 232, 232, 0.9) 30%, 
+                rgba(245, 245, 220, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            border: 3px solid;
+            /* border-image: linear-gradient(45deg, var(--gold), #FFD700, var(--gold-dark)) 1; */
+            border-radius: 30px;
+            box-shadow: 
+                0 25px 50px rgba(212, 175, 55, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .elegant-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate-gradient 10s linear infinite;
+        }
+        
+        @keyframes rotate-gradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* *{
+            font-family: 'Noto Naskh Arabic', serif;
+
+        } */
+        
+        .verse-text {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 2;
+            color: var(--deep-gold);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blessing-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        .blessing-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .auto-scroll-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            font-size: 1.2rem;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            /* box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); */
+        }
+        
+        .music-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            font-size: 1.5rem;
+        }
+        
+        .countdown-flip {
+            /* background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--gold);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.1em;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--gold); }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), #FFD700);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            }
+            
+            .elegant-card {
+                background: linear-gradient(135deg, 
+                    rgba(42, 42, 42, 0.95) 0%, 
+                    rgba(26, 26, 26, 0.9) 30%, 
+                    rgba(42, 42, 42, 0.95) 100%);
+                color: #e5e5e5;
+            }
+            
+            .blessing-card {
+                background: rgba(42, 42, 42, 0.9);
+                color: #e5e5e5;
+            }
+            
+            .verse-text {
+                color: var(--gold-light);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--gold), #FFD700);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+        }
+
+        /* Animation delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1500 { animation-delay: 1.5s; }
+        .delay-2000 { animation-delay: 2s; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Background Video -->
+    <video class="video-bg" loop autoplay muted>
+        <source src="./background.mp4" type="video/mp4">
+    </video>
+
+    <!-- Progress Bar -->
+    <div id="progressBar" class="progress-bar"></div>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Music Button -->
+    <button id="musicButton" class="music-button" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+    
+    <!-- Auto Scroll Controls -->
+    <div class="auto-scroll-controls">
+        <button class="control-btn" onclick="toggleAutoScroll()" id="autoScrollBtn" title="تشغيل/إيقاف التمرير التلقائي">
+            <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn" onclick="previousSection()" title="القسم السابق">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="control-btn" onclick="nextSection()" title="القسم التالي">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+    
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="./yf.mp4" type="audio/mpeg">
+    </audio>
+
+    <div class="container mx-auto">
+
+        <!-- Section 1: Opening -->
+        <section class="section-container" id="section1">
+            <div class="text-center py-16">
+                <div class="elegant-card p-12 mx-4 max-w-4xl">
+                    <div class="mb-8">
+                        <h1 class="text-2xl md:text-4xl font-bold gold-text mb-6 typewriter">
+                            بسم الله الرحمن الرحيم
+                        </h1>
+                        <div class="w-32 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mb-8"></div>
+                        <p class="verse-text mb-6 quran">
+                            "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+                        </p>
+                        <p class="text-lg gold-text font-bold">
+                            صدق الله العظيم
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Names -->
+        <section class="section-container" id="section2">
+            <div class="text-center py-16">
+                <div class="elegant-card p-12 mx-4 max-w-4xl">
+                    <h1 class="bride-groom-names ornament-text mb-8">
+                        خالد ♥ هند
+                    </h1>
+                    <p class="text-xl md:text-2xl gold-text font-bold mb-6">
+                        💫 نعلن بفرح وسرور عن اقتران نجمين 💫
+                    </p>
+                    <!-- <div class="text-lg text-gray-700 dark:text-gray-300 space-y-4">
+                        <p>✨ حيث تتلاقى القلوب وتتحد الأرواح ✨</p>
+                        <p>🌹 في رحلة حب أبدية مباركة 🌹</p>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Invitation -->
+        <section class="section-container" id="section3">
+            <div class="py-16">
+                <div class="elegant-card p-12 mx-4 max-w-5xl">
+                    <h2 class="text-3xl md:text-4xl font-bold gold-text mb-8 text-center ornament-text">
+                        دعوة 
+                    </h2>
+                    <div class="text-center space-y-6">
+                        <p class="text-xl md:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                            بأسمى آيات التهاني والتبريكات 
+                        </p>
+                        <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+                            يتشرف <span class="font-bold gold-text">حرم المحامي محمد الجداوي</span><br>
+                            بدعوتكم لحضور حفل زفاف ابنتهم الغالية
+                        </p>
+                        <p class="text-3xl md:text-4xl font-bold gold-text my-8">
+                            هند 
+                        </p>
+                        <div class="bg-rose-50 dark:bg-gray-800 p-6 rounded-2xl border-2 border-gold-200">
+                            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4">
+                                 بحضوركم تكتمل فرحتنا ويزداد سرورنا 
+                            </p>
+                            <p class="text-base md:text-lg text-gray-600 dark:text-gray-400">
+                                نتشرف بوجودكم في هذه المناسبة السعيدة لتشاركونا أجمل اللحظات
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Blessings -->
+        <!-- <section class="section-container" id="section4">
+            <div class="py-16">
+                <div class="max-w-6xl mx-auto px-4">
+                    <h3 class="text-3xl md:text-4xl font-bold text-center gold-text mb-12 ornament-text">
+                        تهانينا وبركاتنا
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">🤲</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">دعاء وبركة</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                بارك الله لكما وبارك عليكما وجمع بينكما في خير
+                            </p>
+                        </div>
+                        
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">💕</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">محبة ووفاق</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                عسى أن تدوم المحبة والوفاق بينكما طوال العمر
+                            </p>
+                        </div>
+                        
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">🌟</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">سعادة أبدية</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                نسأل الله أن يملأ حياتكما بالسعادة والفرح
+                            </p>
+                        </div>
+                        
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">👶</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">ذرية صالحة</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                أكرمكما الله بالذرية الصالحة والأولاد البررة
+                            </p>
+                        </div>
+                        
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">🏡</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">بيت سعيد</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                عسى أن يكون بيتكما عامراً بالإيمان والطاعة
+                            </p>
+                        </div>
+                        
+                        <div class="blessing-card p-6 text-center">
+                            <div class="text-4xl mb-4">🌹</div>
+                            <h4 class="text-xl font-bold gold-text mb-3">عمر مديد</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                متعكما الله بالصحة والعافية وطول العمر
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Section 5: Event Details -->
+        <section class="section-container" id="section5">
+            <div class="py-16">
+                <div class="max-w-6xl mx-auto px-4">
+                    <h3 class="text-3xl md:text-4xl font-bold text-center gold-text mb-12 ornament-text">
+                        تفاصيل الحفل
+                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Date -->
+                        <div class="elegant-card p-8 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl gold-text mb-6">
+                                <i class="fas far fa-calendar-heart"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold mb-4 gold-text">التاريخ </h4>
+                            <p class="text-lg text-gray-700 dark:text-gray-300 mb-2">يوم الثلاثاء </p>
+                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">2025/9/9</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">الموافق 17 ربيع الأول 1447 هـ</p>
+                            <!-- <div class="bg-gold-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    📅 يوم مميز نحتفل فيه بالحب والسعادة
+                                </p>
+                            </div> -->
+                        </div>
+
+                        <!-- Time -->
+                        <div class="elegant-card p-8 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl gold-text mb-6">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold mb-4 gold-text">التوقيت</h4>
+                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">2:00 مساءً</p>
+                            <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">حتى 9:00 مساءً</p>
+                          
+                        </div>
+
+                        <!-- Location -->
+                        <div class="elegant-card p-8 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl gold-text mb-6">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold mb-4 gold-text">المكان</h4>
+                            <p class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4"> قاعة اشبيلية </p>
+                            <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">طلعة الصلبة - مقابل فتحة شارع بغداد</p>
+                            <button onclick="openMap()" class="w-full bg-gradient-to-r from-gold to-gold-dark text-white px-6 py-3 rounded-full text-lg font-semibold transition-all hover:shadow-lg">
+                                <i class="fas fa-map mr-2"></i>
+                                عرض على الخريطة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Countdown -->
+        <section class="section-container" id="section6">
+            <div class="py-16">
+                <div class="max-w-4xl mx-auto text-center px-4">
+                    <h3 class="text-3xl md:text-4xl font-bold gold-text mb-8 ornament-text">
+                        العد التنازلي للسعادة
+                    </h3>
+                    <div class="countdown-flip mb-8">
+                        <div id="flipdown" class="flipdown"></div>
+                    </div>
+                    <p class="text-xl text-gray-700 dark:text-gray-300">
+                         كل ثانية تمر تقربنا من لحظة السعادة الكبرى
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Dress Code & Instructions -->
+        <!-- <section class="section-container" id="section7">
+            <div class="py-16">
+                <div class="max-w-5xl mx-auto px-4">
+                    <h3 class="text-3xl md:text-4xl font-bold text-center gold-text mb-12 ornament-text">
+                        تعليمات خاصة
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="elegant-card p-8">
+                            <div class="text-center mb-6">
+                                <div class="text-4xl mb-4">👗</div>
+                                <h4 class="text-2xl font-bold gold-text">الزي المطلوب</h4>
+                            </div>
+                            <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">✨</span>
+                                    الألوان المفضلة: الذهبي، الوردي، البيج
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">👔</span>
+                                    للرجال: بدلة رسمية أنيقة
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">👗</span>
+                                    للسيدات: فساتين سهرة راقية
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">💄</span>
+                                    المكياج والإكسسوارات مرحب بها
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="elegant-card p-8">
+                            <div class="text-center mb-6">
+                                <div class="text-4xl mb-4">📋</div>
+                                <h4 class="text-2xl font-bold gold-text">ملاحظات مهمة</h4>
+                            </div>
+                            <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">🚗</span>
+                                    متوفر موقف سيارات مجاني
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">📱</span>
+                                    للاستفسار: 0123456789
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">🎁</span>
+                                    حضوركم أغلى هدية
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-gold mr-3">📸</span>
+                                    مصور محترف للحفل
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Section 8: Final Message -->
+        <!-- <section class="section-container hidden" id="section8">
+            <div class="py-16">
+                <div class="max-w-4xl mx-auto text-center px-4">
+                    <div class="elegant-card p-12">
+                        <h3 class="text-3xl md:text-4xl font-bold gold-text mb-8 ornament-text">
+                            في انتظاركم بفارغ الصبر
+                        </h3>
+                        
+                        <div class="space-y-6 text-lg md:text-xl text-gray-700 dark:text-gray-300">
+                            <p>🌟 نتطلع بشوق للقائكم في هذا اليوم المبارك 🌟</p>
+                            <p>💝 حضوركم يضفي البهجة والسرور على قلوبنا 💝</p>
+                            <p>🤲 ندعوكم لمشاركتنا أجمل اللحظات والذكريات 🤲</p>
+                            <p>✨ معاً نصنع ذكريات لا تُنسى في ليلة العمر ✨</p>
+                        </div>
+                        
+                        <div class="mt-12 p-6 bg-gradient-to-r from-gold-50 to-rose-50 dark:from-gray-700 dark:to-gray-800 rounded-2xl">
+                            <p class="text-2xl font-bold gold-text mb-4">
+                                "وجعل بينكم مودة ورحمة"
+                            </p>
+                            <p class="text-lg text-gray-600 dark:text-gray-300">
+                                بانتظاركم بكل الحب والتقدير 💕
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Section 9:⏰ Footer -->
+        <section class="section-container" id="section9">
+            <div class="py-16">
+                <div class="text-center">
+                    <div class="elegant-card p-12 mx-4 max-w-2xl">
+                        <div class="w-32 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mb-8"></div>
+                        <p class="text-3xl md:text-4xl font-bold bride-groom-names mb-6">
+                            خالد ♥ هند
+                        </p>
+                        <p class="text-xl gold-text font-bold mb-4">
+                            2025/9/9
+                        </p>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">
+                            ليلة العمر • حفل الأحلام
+                        </p>
+                      
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Variables
+        let currentSection = 0;
+        let isAutoScrolling = false;
+        let autoScrollInterval;
+        let isPlaying = false;
+        const sections = document.querySelectorAll('.section-container');
+        const totalSections = sections.length;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCountdown();
+            createFloatingHearts();
+            updateProgressBar();
+            showCurrentSection();
+            observeSections();
+        });
+
+        // Countdown Timer
+        function initializeCountdown() {
+            const targetDate = new Date(2025, 8, 9, 14, 0, 0); // September 9, 2025, 2:00 PM
+            const targetTimestamp = Math.floor(targetDate.getTime() / 1000);
+            
+            new FlipDown(targetTimestamp, {
+                theme: "dark",
+            }).start().ifEnded(() => {
+                document.getElementById('flipdown').innerHTML = '<div class="text-2xl font-bold text-white">🎉 حان وقت الاحتفال! 🎉</div>';
+            });
+        }
+
+        // Auto Scroll Functionality
+        function toggleAutoScroll() {
+            const btn = document.getElementById('autoScrollBtn');
+            if (isAutoScrolling) {
+                clearInterval(autoScrollInterval);
+                isAutoScrolling = false;
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                isAutoScrolling = true;
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+                autoScrollInterval = setInterval(() => {
+                    nextSection();
+                }, 8000); // 8 seconds per section
+            }
+        }
+
+        function nextSection() {
+            currentSection = (currentSection + 1) % totalSections;
+            scrollToSection(currentSection);
+        }
+
+        function previousSection() {
+            currentSection = (currentSection - 1 + totalSections) % totalSections;
+            scrollToSection(currentSection);
+        }
+
+        function scrollToSection(index) {
+            sections[index].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            updateProgressBar();
+        }
+
+        function showCurrentSection() {
+            sections.forEach((section, index) => {
+                if (index === currentSection) {
+                    section.classList.add('section-visible');
+                }
+            });
+        }
+
+        // Progress Bar
+        function updateProgressBar() {
+            const progress = ((currentSection + 1) / totalSections) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Intersection Observer for sections
+        function observeSections() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                        currentSection = Array.from(sections).indexOf(entry.target);
+                        updateProgressBar();
+                        
+                        // Animate blessing cards
+                        const blessingCards = entry.target.querySelectorAll('.blessing-card');
+                        blessingCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('blessing-visible');
+                            }, index * 200);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5,
+                rootMargin: '-50px 0px'
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Floating Hearts
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.innerHTML = '♥';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+                
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }
+            
+            setInterval(createHeart, 3000);
+        }
+
+        // Music functionality
+        function toggleMusic() {
+            const music = document.getElementById('backgroundMusic');
+            const musicButton = document.getElementById('musicButton');
+            
+            if (isPlaying) {
+                music.pause();
+                musicButton.innerHTML = '<i class="fas fa-music"></i>';
+                isPlaying = false;
+            } else {
+                music.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+                musicButton.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+            }
+        }
+
+        // Auto-play music on user interaction
+        document.addEventListener('click', function() {
+            if (!isPlaying) {
+                const music = document.getElementById('backgroundMusic');
+                music.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+                document.getElementById('musicButton').innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+            }
+        }, { once: true });
+
+        // Map function
+        function openMap() {
+            const url = `https://www.google.com/maps/place/%D8%B5%D8%A7%D9%84%D8%A9+%D8%A5%D8%B4%D8%A8%D9%8A%D9%84%D9%8A%D8%A7+%D9%84%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA%E2%80%AD/data=!4m2!3m1!1s0x0:0x94e17dc9607da3bc?sa=X&ved=1t:2428&ictx=111`;
+            window.open(url, '_blank');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                nextSection();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                previousSection();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                toggleAutoScroll();
+            }
+        });
+
+        // Touch/Swipe support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartY - touchEndY;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe up - next section
+                    nextSection();
+                } else {
+                    // Swipe down - previous section
+                    previousSection();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
